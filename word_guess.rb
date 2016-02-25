@@ -4,21 +4,36 @@
 
 # FLOW CHART
 puts "Welcome to our game!"
-puts "Try to solve the word by guessing letters. Once the cat wakes up, the game is over."
+puts "Try to solve the word by guessing letters. Once the cat wakes up, the " +
+"game is over."
 
+# array of words
 words = ["tiger", "lion", "bear", "jaguar"].shuffle
+# randomly selects a word (without repeats)
 answer = words.pop
 
+# prints word: _s that represents answer
 print "word: "
 answer.length.times do
   print "_ "
 end
 puts
 
+# prompts user for letter
 print "Please enter a letter: "
 letter = gets.chomp
 
-# array of words .sample
+if letter[/[a-zA-Z]+/]  == letter
+  if letter.length == 1
+    puts "YAY"
+  else
+    puts "Please try again."
+  end
+else
+  puts "Please try again."
+end
+
+
 # picks random word from array
 # do loop to show "WORD : _ _ _ _ _ _ "
 # user input = ""
@@ -32,9 +47,10 @@ letter = gets.chomp
     #-> if wrong letter, remove Z from sleeping cat
 #turn answer into its own array?
 
-class WordGuess
-
-end
+# class WordGuess
+#   def match letter
+#     if letter
+# end
 
 bike_cat = ['
                 ________________
