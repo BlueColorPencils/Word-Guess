@@ -3,6 +3,21 @@
 #game over shows cat leaving
 
 # FLOW CHART
+puts "Welcome to our game!"
+puts "Try to solve the word by guessing letters. Once the cat wakes up, the game is over."
+
+words = ["tiger", "lion", "bear", "jaguar"].shuffle
+answer = words.pop
+
+print "word: "
+answer.length.times do
+  print "_ "
+end
+puts
+
+print "Please enter a letter: "
+letter = gets.chomp
+
 # array of words .sample
 # picks random word from array
 # do loop to show "WORD : _ _ _ _ _ _ "
@@ -15,20 +30,11 @@
     #-> push all guessed letters in an array
     #-> if correct letter, show "WORD: _ _ X _ _"
     #-> if wrong letter, remove Z from sleeping cat
-
+#turn answer into its own array?
 
 class WordGuess
 
 end
-
-puts "
-  Z
-    Z
-      Z      |\\     _,,,---,,_
-        Z     /,`.-'`'    -.  ;-;;,_
-          Z  |,4-  ) )-,_..;\\  ( `'-'
-            '---''(_/--'  `-'\\_)
-"
 
 bike_cat = ['
                 ________________
@@ -55,6 +61,3 @@ sleepy_cat = [
                /,`.-'`'    -.  ;-;;,_
               |,4-  ) )-,_..;\\  ( `'-'
              '---''(_/--'  `-'\\_)" ]
-
-puts sleepy_cat
-puts bike_cat
