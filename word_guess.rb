@@ -28,6 +28,10 @@ sleepy_cat = [
               |,4-  ) )-,_..;\\  ( `'-'
              '---''(_/--'  `-'\\_)" ]
 
+cat_message = ["Wrong letter.. Don't wake sleepy cat!", "Letter does not exist!"+
+   " Sleepy cat is less sleepy.", "Guess again! Sleepy cat is stirring.", +
+   "Not even close. Sleepy cat is about to wake up.", "No more guesses. "+
+   "Sleepy cat has decided to bike away."]
 # FLOW CHART
 puts "Welcome to our game!"
 puts "Try to solve the word by guessing letters.
@@ -35,10 +39,17 @@ Once the cat wakes up, the game is over."
 
 puts sleepy_cat
 
+
+print "Enter a letter: "
+letter = gets.chomp
 # array of words
 words = ["loon"] #"tiger", "lion", "bear", "jaguar"].shuffle
 # randomly selects a word (without repeats)
 answer = words.pop.split("")
+num = 0
+good = ""
+guessed_letters = [""]
+
 # prints word: _s that represents answer
 underscores = []
 answer.length.times do
@@ -46,54 +57,82 @@ answer.length.times do
 end
 puts
 
-guessed_letters = [""]
-
-print "word: #{underscores.join(' ')}\n"
-print "guessed letters: #{guessed_letters.join(' ')}\n"
 # prompts user for letter
-print "Enter a letter: "
-letter = gets.chomp
-good = ""
 
-# check to see if it's a letter
-until good == "good"
-  if letter[/[a-zA-Z]+/]  == letter
-    # check to see if it's ONE letter
-    if letter.length == 1
-      if guessed_letters.include? letter
-        print "Please try again. Enter a letter: "
-        letter = gets.chomp
-      else
-        good = "good"
-        # places guessed letters into an array
-        guessed_letters.push(letter)
-      end
-    else
-      print "Please try again. Enter a letter: "
-      letter = gets.chomp
-    end
-  else
+game = WordGuess.new(cat)
+  # TOMORROW ADD PROPER METHODS TO MAKE SEQUENCE OF GAME.
+  game.words_and_guessed
+
+class WordGuess
+  attr_accessor :guessed_letters, :letter, :answer, :underscores, :num, :good,
+  :cat_message, :sleepy_cat
+
+  def initialize(cat)
+    @guessed_letters = guessed_letters
+    @letter = letter
+    @answer = answer
+    @underscores = underscores
+    @num = num
+    @good = good
+    @cat_message = cat_message
+    @sleepy_cat = sleepy_cat
+  end
+
+  def words_and_guessed
+    print "word: #{underscores.join(' ')}\n"
+    print "guessed letters: #{guessed_letters.join(' ')}\n"
+  end
+
+  def try_again
     print "Please try again. Enter a letter: "
-    letter = gets.chomp
+    @letter = gets.chomp
   end
+
+  def letter_check
+    # check to see if it's a letter
+    until @good == "good"
+      if @letter[/[a-zA-Z]+/]  == @letter
+        # check to see if it's ONE @letter
+        if @letter.length == 1
+          if @guessed_letters.include? @letter
+            try_again
+          else
+            @good = "good"
+            # places guessed @letters into an array
+            @guessed_letters.push(@letter)
+          end
+        else
+          try_again
+        end
+      else
+        try_again
+      end
+    end
+  end
+
+  def replace_underscores
+    @answer.length.times do |x|
+      if @letter == @answer[x]
+        @underscores[x] = @letter
+      end
+    end
+  end
+
+  def drop_z
+    #take away a Z from the cat
+    unless @answer.include? @letter
+      @num += 1
+      puts @cat_message[@num]
+      puts @sleepy_cat[@num..@sleepy_cat.length]
+    end
+  end
+
+
 end
 
-answer.length.times do |x|
-  if letter == answer[x]
-    underscores[x] = letter
-  end
-end
-
-print "word: #{underscores.join(' ')}\n"
-print "guessed letters: #{guessed_letters.join(' ')}\n"
-
-# while answer.include? letter do
-#     letter_index = answer.index(letter)
-#   underscores[letter_index] = letter
-#   print underscores
-#   #take away a Z from the cat
-# end
-
+# @letter_index = answer.index(letter)
+# underscores[letter_index] = letter
+# print underscores
 # picks random word from array
 # do loop to show "WORD : _ _ _ _ _ _ "
 # user input = ""
@@ -106,8 +145,3 @@ print "guessed letters: #{guessed_letters.join(' ')}\n"
     #-> if correct letter, show "WORD: _ _ X _ _"
     #-> if wrong letter, remove Z from sleeping cat
 #turn answer into its own array?
-
-# class WordGuess
-#   def match letter
-#     if letter
-# end
