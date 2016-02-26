@@ -1,4 +1,4 @@
-#IN-CLASS - THURS FEB 25
+#IN-CLASS - THURS FEB 25 #Look at line 62 tomorrow!
 #game similar to hangman - cat loses z if wrong guess
 #game over shows cat leaving
 
@@ -59,9 +59,16 @@ puts
 
 # prompts user for letter
 
-game = WordGuess.new(cat)
+new_game = WordGuess.new(cat)
   # TOMORROW ADD PROPER METHODS TO MAKE SEQUENCE OF GAME.
-  game.words_and_guessed
+  # we should write our flow chart of how we want it to run
+
+
+#until game is over
+  # run methods in order we think should be done
+#end
+#game over
+  #game.words_and_guessed
 
 class WordGuess
   attr_accessor :guessed_letters, :letter, :answer, :underscores, :num, :good,
