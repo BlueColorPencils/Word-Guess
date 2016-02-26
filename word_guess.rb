@@ -3,28 +3,21 @@
 #game over shows cat leaving
 
 # FLOW CHART
-# puts "Welcome to our game!"
-# puts "Try to solve the word by guessing letters.
-# Once the cat wakes up, the game is over."
-#
-# puts sleepy_cat
-#
-#
-# print "Enter a letter: "
-# letter = gets.chomp
-# # array of words
+
+
+
+  # puts word.letter_check
+
+
 # words = ["loon"] #"tiger", "lion", "bear", "jaguar"].shuffle
-# # randomly selects a word (without repeats)
-# answer = words.pop.split("")
+# randomly selects a word (without repeats)
+#
 # num = 0
 # good = ""
 # guessed_letters = [""]
-#
-# # prints word: _s that represents answer
-# underscores = []
-# answer.length.times do
-#    underscores.push("_ ")
-# end
+
+# prints word: _s that represents answer
+
 # puts
 
 # prompts user for letter
@@ -44,10 +37,11 @@ class WordGuess
   :cat_message, :sleepy_cat
 
   def initialize
-    @guessed_letters = ["b"]
-    @letter = "z"
-    @answer = ["c","a","t"]
-    @underscores = ["_","_","_"]
+    @words = ["loon", "goon"].shuffle
+    @guessed_letters = [""]
+    @letter = letter
+    @answer = @words.pop.split("")
+    @underscores = underscores
     @num = 0
     @good = ""
     @cat_message = cat_message
@@ -56,7 +50,7 @@ class WordGuess
   end
 
   def cat_message
-    cat_message = ["Wrong letter.. Don't wake sleepy cat!", "Letter does not exist!"+
+    cat_message = ["Wrong letter.. Don't wake sleep cat!", "Letter does not exist!"+
        " Sleepy cat is less sleepy.", "Guess again! Sleepy cat is stirring.", +
        "Not even close. Sleepy cat is about to wake up.", "No more guesses. "+
        "Sleepy cat has decided to bike away."]
@@ -72,7 +66,9 @@ class WordGuess
     "                |\\     _,,,---,,_
                    /,`.-'`'    -.  ;-;;,_
                   |,4-  ) )-,_..;\\  ( `'-'
-                 '---''(_/--'  `-'\\_)" ]
+                 '---''(_/--'  `-'\\_)
+                 " ]
+  puts sleepy_cat
   end
 
   def bike_cat
@@ -91,9 +87,16 @@ class WordGuess
         """`     """`  ']
   end
 
+  def new_letter
+    # prompt for very first letter guess
+    print "Enter a letter: "
+    @letter = gets.chomp
+    puts
+  end
+
   def words_and_guessed
-    print "word: #{@underscores.join(' ')}\n"
-    print "guessed letters: #{@guessed_letters.join(' ')}\n"
+    print "word: #{underscores}\n"
+    print "guessed letters: #{@guessed_letters.join(' ')}\n\n"
   end
 
   def try_again
@@ -123,12 +126,21 @@ class WordGuess
     end
   end
 
+  def underscores
+    @underscores = []
+    @answer.length.times do
+       @underscores = @underscores.push("_ ")
+    end
+    @underscores.join(' ')
+  end
+
   def replace_underscores
     @answer.length.times do |x|
       if @letter == @answer[x]
         @underscores[x] = @letter
       end
     end
+    puts @underscores.join(' ')
   end
 
   def drop_z
@@ -140,8 +152,34 @@ class WordGuess
     end
   end
 
-
 end
+
+
+puts "Welcome to our game! Try to solve the word by guessing letters.
+Once sleepy cat wakes up (loses Zs), the game is over!\n\n"
+
+# entering into our game class
+word = WordGuess.new
+
+#1 display sleepy cat
+word.sleepy_cat
+
+#2 display the underscore words and guessed letters
+word.words_and_guessed
+
+#3 prompt for letter
+word.new_letter
+
+#4 checks to see if letter is a SINGLE CHARACTER UNUSED letter
+word.letter_check
+
+#5 if letter is part of answer, replace the underscore with letter
+word.replace_underscores
+
+#6 if NOT part of answer, drop a Z
+word.drop_z
+
+
 
 # @letter_index = answer.index(letter)
 # underscores[letter_index] = letter
