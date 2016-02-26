@@ -34,19 +34,33 @@
 
 class WordGuess
   attr_accessor :guessed_letters, :letter, :answer, :underscores, :num, :good,
-  :cat_message, :sleepy_cat
+  :cat_message, :sleepy_cat, :bike_cat, :words
 
   def initialize
-    @words = ["loon", "goon"].shuffle
+    @words = ["oooo", "ooo"].shuffle
     @guessed_letters = [""]
     @letter = letter
-    @answer = @words.pop.split("")
+    @answer = answer
     @underscores = underscores
     @num = 0
     @good = ""
     @cat_message = cat_message
     @sleepy_cat = sleepy_cat
     @bike_cat = bike_cat
+  #@valid_under = @answer.reverse
+  end
+
+  def if_statement
+    puts @answer
+    puts @underscores
+    if @answer == @underscores.delete("")#@valid_under
+    puts "You won!"
+    exit
+    end
+  end
+
+  def answer
+    @words.pop.split("")
   end
 
   def cat_message
@@ -68,7 +82,7 @@ class WordGuess
                   |,4-  ) )-,_..;\\  ( `'-'
                  '---''(_/--'  `-'\\_)
                  " ]
-  puts sleepy_cat
+  # puts sleepy_cat
   end
 
   def bike_cat
@@ -94,9 +108,10 @@ class WordGuess
     puts
   end
 
+
   def words_and_guessed
     print "word: #{underscores}\n"
-    print "guessed letters: #{@guessed_letters.join(' ')}\n\n"
+    print "guessed letters: #{@guessed_letters.join (' ')}\n\n"
   end
 
   def try_again
@@ -128,7 +143,7 @@ class WordGuess
 
   def underscores
     @underscores = []
-    @answer.length.times do
+    (0..(@answer.length-1)).each do
        @underscores = @underscores.push("_ ")
     end
     @underscores.join(' ')
@@ -137,10 +152,11 @@ class WordGuess
   def replace_underscores
     @answer.length.times do |x|
       if @letter == @answer[x]
-        @underscores[x] = @letter
+        @underscores[x] = "#{@letter} "
+        #@valid_under[0][x] = "#{@letter}"
       end
     end
-    puts @underscores.join(' ')
+    puts @underscores.join('')
   end
 
   def drop_z
@@ -148,7 +164,13 @@ class WordGuess
     unless @answer.include? @letter
       @num += 1
       puts @cat_message[@num]
-      puts @sleepy_cat[@num..@sleepy_cat.length]
+      @sleepy_cat = @sleepy_cat[@num..@sleepy_cat.length]
+      puts @sleepy_cat
+    end
+    if @num == 5
+      puts @bike_cat
+      puts "Please try again!"
+      exit
     end
   end
 
@@ -159,27 +181,28 @@ puts "Welcome to our game! Try to solve the word by guessing letters.
 Once sleepy cat wakes up (loses Zs), the game is over!\n\n"
 
 # entering into our game class
-word = WordGuess.new
+game = WordGuess.new
 
 #1 display sleepy cat
-word.sleepy_cat
+puts game.sleepy_cat
 
-#2 display the underscore words and guessed letters
-word.words_and_guessed
+#2 display the underscore games and guessed letters
+game.words_and_guessed
 
 #3 prompt for letter
-word.new_letter
+game.new_letter
 
 #4 checks to see if letter is a SINGLE CHARACTER UNUSED letter
-word.letter_check
+game.letter_check
 
 #5 if letter is part of answer, replace the underscore with letter
-word.replace_underscores
+game.replace_underscores
+
+# puts game.
+game.if_statement
 
 #6 if NOT part of answer, drop a Z
-word.drop_z
-
-
+game.drop_z
 
 # @letter_index = answer.index(letter)
 # underscores[letter_index] = letter
