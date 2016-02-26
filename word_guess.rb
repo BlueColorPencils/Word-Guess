@@ -36,32 +36,38 @@ Once the cat wakes up, the game is over."
 puts sleepy_cat
 
 # array of words
-words = ["tiger", "lion", "bear", "jaguar"].shuffle
+words = ["loon"] #"tiger", "lion", "bear", "jaguar"].shuffle
 # randomly selects a word (without repeats)
-answer = words.pop
-
+answer = words.pop.split("")
 # prints word: _s that represents answer
 underscores = []
 answer.length.times do
    underscores.push("_ ")
 end
 puts
-print "word: #{underscores.join(' ')}\n"
 
+guessed_letters = [""]
+
+print "word: #{underscores.join(' ')}\n"
+print "guessed letters: #{guessed_letters.join(' ')}\n"
 # prompts user for letter
 print "Enter a letter: "
 letter = gets.chomp
 good = ""
-guessed_letters = ["d"]
 
 # check to see if it's a letter
 until good == "good"
   if letter[/[a-zA-Z]+/]  == letter
     # check to see if it's ONE letter
     if letter.length == 1
-      good = "good"
-      # places guessed letters into an array
-      guessed_letters.push(letter)
+      if guessed_letters.include? letter
+        print "Please try again. Enter a letter: "
+        letter = gets.chomp
+      else
+        good = "good"
+        # places guessed letters into an array
+        guessed_letters.push(letter)
+      end
     else
       print "Please try again. Enter a letter: "
       letter = gets.chomp
@@ -72,9 +78,22 @@ until good == "good"
   end
 end
 
-if answer.include? letter
-  
+answer.length.times do |x|
+  if letter == answer[x]
+    underscores[x] = letter
+  end
 end
+
+print "word: #{underscores.join(' ')}\n"
+print "guessed letters: #{guessed_letters.join(' ')}\n"
+
+# while answer.include? letter do
+#     letter_index = answer.index(letter)
+#   underscores[letter_index] = letter
+#   print underscores
+#   #take away a Z from the cat
+# end
+
 # picks random word from array
 # do loop to show "WORD : _ _ _ _ _ _ "
 # user input = ""
