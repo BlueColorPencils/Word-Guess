@@ -2,67 +2,36 @@
 #game similar to hangman - cat loses z if wrong guess
 #game over shows cat leaving
 
-bike_cat = ['
-                ________________
-               |      GAME      |_____    __
-               |     OVER!!!    |     |__|  |_________
-               |________________|     |::|  |        /
-  /\**/\       |                \.____|::|__|      <
-  ( o_o  )_    |                      \::/  \._______\
-  (u--u   \_)  |
-   (||___   )==\
-  ,dP"/b/=( /P"/b\
-  |8 || 8\=== || 8
-  `b,  ,P  `b,  ,P
-    """`     """`  ']
-
-
-sleepy_cat = [
-"     Z",
-"       Z",
-"         Z",
-"           Z",
-"             Z",
-"               |\\     _,,,---,,_
-               /,`.-'`'    -.  ;-;;,_
-              |,4-  ) )-,_..;\\  ( `'-'
-             '---''(_/--'  `-'\\_)" ]
-
-cat_message = ["Wrong letter.. Don't wake sleepy cat!", "Letter does not exist!"+
-   " Sleepy cat is less sleepy.", "Guess again! Sleepy cat is stirring.", +
-   "Not even close. Sleepy cat is about to wake up.", "No more guesses. "+
-   "Sleepy cat has decided to bike away."]
 # FLOW CHART
-puts "Welcome to our game!"
-puts "Try to solve the word by guessing letters.
-Once the cat wakes up, the game is over."
-
-puts sleepy_cat
-
-
-print "Enter a letter: "
-letter = gets.chomp
-# array of words
-words = ["loon"] #"tiger", "lion", "bear", "jaguar"].shuffle
-# randomly selects a word (without repeats)
-answer = words.pop.split("")
-num = 0
-good = ""
-guessed_letters = [""]
-
-# prints word: _s that represents answer
-underscores = []
-answer.length.times do
-   underscores.push("_ ")
-end
-puts
+# puts "Welcome to our game!"
+# puts "Try to solve the word by guessing letters.
+# Once the cat wakes up, the game is over."
+#
+# puts sleepy_cat
+#
+#
+# print "Enter a letter: "
+# letter = gets.chomp
+# # array of words
+# words = ["loon"] #"tiger", "lion", "bear", "jaguar"].shuffle
+# # randomly selects a word (without repeats)
+# answer = words.pop.split("")
+# num = 0
+# good = ""
+# guessed_letters = [""]
+#
+# # prints word: _s that represents answer
+# underscores = []
+# answer.length.times do
+#    underscores.push("_ ")
+# end
+# puts
 
 # prompts user for letter
 
-new_game = WordGuess.new(cat)
+# new_game = WordGuess.new(cat)
   # TOMORROW ADD PROPER METHODS TO MAKE SEQUENCE OF GAME.
   # we should write our flow chart of how we want it to run
-
 
 #until game is over
   # run methods in order we think should be done
@@ -74,20 +43,57 @@ class WordGuess
   attr_accessor :guessed_letters, :letter, :answer, :underscores, :num, :good,
   :cat_message, :sleepy_cat
 
-  def initialize(cat)
-    @guessed_letters = guessed_letters
-    @letter = letter
-    @answer = answer
-    @underscores = underscores
-    @num = num
-    @good = good
+  def initialize
+    @guessed_letters = ["b"]
+    @letter = "z"
+    @answer = ["c","a","t"]
+    @underscores = ["_","_","_"]
+    @num = 0
+    @good = ""
     @cat_message = cat_message
     @sleepy_cat = sleepy_cat
+    @bike_cat = bike_cat
+  end
+
+  def cat_message
+    cat_message = ["Wrong letter.. Don't wake sleepy cat!", "Letter does not exist!"+
+       " Sleepy cat is less sleepy.", "Guess again! Sleepy cat is stirring.", +
+       "Not even close. Sleepy cat is about to wake up.", "No more guesses. "+
+       "Sleepy cat has decided to bike away."]
+  end
+
+  def sleepy_cat
+    sleepy_cat = [
+    "     Z",
+    "       Z",
+    "         Z",
+    "           Z",
+    "             Z",
+    "                |\\     _,,,---,,_
+                   /,`.-'`'    -.  ;-;;,_
+                  |,4-  ) )-,_..;\\  ( `'-'
+                 '---''(_/--'  `-'\\_)" ]
+  end
+
+  def bike_cat
+    bike_cat = ['
+                    ________________
+                   |      GAME      |_____    __
+                   |     OVER!!!    |     |__|  |_________
+                   |________________|     |::|  |        /
+      /\**/\       |                \.____|::|__|      <
+      ( o_o  )_    |                      \::/  \._______\
+      (u--u   \_)  |
+       (||___   )==\
+      ,dP"/b/=( /P"/b\
+      |8 || 8\=== || 8
+      `b,  ,P  `b,  ,P
+        """`     """`  ']
   end
 
   def words_and_guessed
-    print "word: #{underscores.join(' ')}\n"
-    print "guessed letters: #{guessed_letters.join(' ')}\n"
+    print "word: #{@underscores.join(' ')}\n"
+    print "guessed letters: #{@guessed_letters.join(' ')}\n"
   end
 
   def try_again
