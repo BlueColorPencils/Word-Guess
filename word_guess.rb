@@ -3,12 +3,7 @@
 #game over shows cat leaving
 
 # FLOW CHART
-
-
-
   # puts word.letter_check
-
-
 # words = ["loon"] #"tiger", "lion", "bear", "jaguar"].shuffle
 # randomly selects a word (without repeats)
 #
@@ -37,10 +32,10 @@ class WordGuess
   :cat_message, :sleepy_cat, :bike_cat, :words
 
   def initialize
-    @words = ["oooo", "ooo"].shuffle
+    @words = ["loon", "goon", "monkey", "dog"].shuffle
     @guessed_letters = [""]
     @letter = letter
-    @answer = answer
+    @answer = @words[0]
     @underscores = underscores
     @num = 0
     @good = ""
@@ -51,23 +46,20 @@ class WordGuess
   end
 
   def if_statement
-    puts @answer
-    puts @underscores
-    if @answer == @underscores.delete("")#@valid_under
+    if @answer.delete(" ") == @underscores.join('').delete(' ')
     puts "You won!"
     exit
+    else
+      false
     end
   end
 
-  def answer
-    @words.pop.split("")
-  end
-
   def cat_message
-    cat_message = ["Wrong letter.. Don't wake sleep cat!", "Letter does not exist!"+
-       " Sleepy cat is less sleepy.", "Guess again! Sleepy cat is stirring.", +
-       "Not even close. Sleepy cat is about to wake up.", "No more guesses. "+
-       "Sleepy cat has decided to bike away."]
+    cat_message = ["\nWrong letter.. Don't wake sleep cat!\n\n",
+      "\nLetter does not exist! Sleepy cat is less sleepy.\n\n",
+      "\nGuess again! Sleepy cat is stirring.\n\n",
+      "\nNot even close. Sleepy cat is about to wake up.\n\n",
+      "\nNo more guesses. Sleepy cat has decided to bike away.\n\n"]
   end
 
   def sleepy_cat
@@ -82,7 +74,7 @@ class WordGuess
                   |,4-  ) )-,_..;\\  ( `'-'
                  '---''(_/--'  `-'\\_)
                  " ]
-  # puts sleepy_cat
+
   end
 
   def bike_cat
@@ -107,7 +99,6 @@ class WordGuess
     @letter = gets.chomp
     puts
   end
-
 
   def words_and_guessed
     print "word: #{underscores}\n"
@@ -163,19 +154,17 @@ class WordGuess
     #take away a Z from the cat
     unless @answer.include? @letter
       @num += 1
-      puts @cat_message[@num]
-      @sleepy_cat = @sleepy_cat[@num..@sleepy_cat.length]
-      puts @sleepy_cat
+      puts @cat_message[@num-1]
+      puts @sleepy_cat[@num..@sleepy_cat.length]
     end
     if @num == 5
       puts @bike_cat
-      puts "Please try again!"
+      puts ":( Please try again!"
       exit
     end
   end
 
 end
-
 
 puts "Welcome to our game! Try to solve the word by guessing letters.
 Once sleepy cat wakes up (loses Zs), the game is over!\n\n"
@@ -183,26 +172,37 @@ Once sleepy cat wakes up (loses Zs), the game is over!\n\n"
 # entering into our game class
 game = WordGuess.new
 
-#1 display sleepy cat
-puts game.sleepy_cat
+  #1 display sleepy cat
+  puts game.sleepy_cat
+  game.words_and_guessed
+#  puts game.if_statement
 
-#2 display the underscore games and guessed letters
-game.words_and_guessed
+until game.if_statement == true
+#  game.words_and_guessed
 
-#3 prompt for letter
-game.new_letter
+  #3 prompt for letter
+  game.new_letter
 
-#4 checks to see if letter is a SINGLE CHARACTER UNUSED letter
-game.letter_check
+  #4 checks to see if letter is a SINGLE CHARACTER UNUSED letter
+  game.letter_check
 
-#5 if letter is part of answer, replace the underscore with letter
-game.replace_underscores
+  #5 if letter is part of answer, replace the underscore with letter
+  game.replace_underscores
 
-# puts game.
-game.if_statement
+  # puts game.
+  game.if_statement
 
-#6 if NOT part of answer, drop a Z
-game.drop_z
+  #6 if NOT part of answer, drop a Z
+  game.drop_z
+
+
+end
+
+
+# right now underscores add isn't doing what it's supposed too.
+#It doesnt retain previously guessed letters.
+# it's probably something wrong with the loop
+# Last minute. we should put in a happy cat for winning
 
 # @letter_index = answer.index(letter)
 # underscores[letter_index] = letter
