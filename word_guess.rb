@@ -54,6 +54,13 @@ class WordGuess
     end
   end
 
+  def intro
+    puts "Welcome to our game! Try to solve the word by guessing letters.
+    Once sleepy cat wakes up (loses Zs), the game is over!\n\n"
+    "word: #{underscores}\n"
+    "guessed letters: #{@guessed_letters.join (' ')}"
+  end
+
   def cat_message
     cat_message = ["\nWrong letter.. Don't wake sleep cat!\n\n",
       "\nLetter does not exist! Sleepy cat is less sleepy.\n\n",
@@ -101,7 +108,7 @@ class WordGuess
   end
 
   def words_and_guessed
-    print "word: #{underscores}\n"
+    print "word: #{@underscores.join(' ')}\n"
     print "guessed letters: #{@guessed_letters.join (' ')}\n\n"
   end
 
@@ -166,19 +173,20 @@ class WordGuess
 
 end
 
-puts "Welcome to our game! Try to solve the word by guessing letters.
-Once sleepy cat wakes up (loses Zs), the game is over!\n\n"
+
 
 # entering into our game class
 game = WordGuess.new
 
-  #1 display sleepy cat
-  puts game.sleepy_cat
-  game.words_and_guessed
+game.intro
+
+#1 display sleepy cat
+puts game.sleepy_cat
+# game.words_and_guessed
 #  puts game.if_statement
 
 until game.if_statement == true
-#  game.words_and_guessed
+  game.words_and_guessed
 
   #3 prompt for letter
   game.new_letter
