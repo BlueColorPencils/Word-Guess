@@ -7,8 +7,9 @@ class WordGuess
   :cat_message, :sleepy_cat, :bike_cat, :words
 
   def initialize
-    @words = ["loon", "unicorn", "baboon", "ocelot", "dachshund", "penguin", "cuttlefish",
-      "greyhound", "meerkat", "rhinoceros", "giraffe", "slug", "zonkey", "narwhal", "opossum"].shuffle
+    @words = ["loon", "unicorn", "baboon", "ocelot", "dachshund", "penguin",
+      "cuttlefish","greyhound", "meerkat", "rhinoceros", "giraffe", "slug",
+      "zonkey", "narwhal", "opossum", "emu", "wombat", "duck"].shuffle
     @guessed_letters = [""]
     @letter = letter
     @answer = @words[0]
@@ -49,7 +50,7 @@ class WordGuess
     "         Z",
     "           Z",
     "             Z",
-    "                |\\     _,,,---,,_
+    "                  |\\     _,,,---,,_
                    /,`.-'`'    -.  ;-;;,_
                   |,4-  ) )-,_..;\\  ( `'-'
                  '---''(_/--'  `-'\\_)
@@ -97,15 +98,17 @@ class WordGuess
         # check to see if it's ONE @letter
           if @guessed_letters.include? @letter
             try_again
-            break
+            # break
           else
             # places guessed @letters into an array
             @guessed_letters.push(@letter)
+            # puts @guessed_letters
+            # drop_z
             break
           end
         else
           try_again
-          break
+          # break
         end
     end
   end
@@ -130,13 +133,18 @@ class WordGuess
   def drop_z
     #take away a Z from the cat
     unless @answer.include? @letter
-      @num += 1
-      puts @cat_message[@num-1]
-      puts @sleepy_cat[@num..@sleepy_cat.length]
+      # user enters a letter - > z
+      # automatically gets pushed into guessed_letters
+      if @guessed_letters[0..@guessed_letters.length-2].include? @letter
+      else
+        @num += 1
+        puts @cat_message[@num-1]
+        puts @sleepy_cat[@num..@sleepy_cat.length]
+      end
     end
     if @num == 5
       puts @bike_cat
-      puts ":( Please try again!"
+      puts ":( You failed. You don't get to see the answer. Please try again!"
       exit
     end
   end
